@@ -33,6 +33,8 @@ function evaluate(node, cb) {
         })
       })
     })
+  } else {
+    throw new Error("invalid expression");
   }
 }
 

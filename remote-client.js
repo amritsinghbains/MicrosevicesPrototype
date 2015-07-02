@@ -8,8 +8,8 @@ var calculate = require('./calculator')(parse, evaluate).client();
 
 sum(3,2, log);
 product(3,2, log);
-parse('2+5', function(err, astStr) {
-  evaluate(astStr, log);
+parse('2+5', function(err, ast) {
+  evaluate(ast, log);
 });
 calculate('3+2*(5+1)', log);
 

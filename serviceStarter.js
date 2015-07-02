@@ -7,7 +7,6 @@ seneca = require('seneca')();
 
 
 
-
 var parserModule = require('./parser');
 
 var sumModule = require('./sum');
@@ -24,4 +23,6 @@ parserModule.startService();
 evaluateModule.startService();
 calculatorModule.startService();
 
-seneca.listen();
+//adding admin server
+
+seneca.listen()
