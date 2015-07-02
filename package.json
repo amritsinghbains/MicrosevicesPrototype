@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "connect": "^3.4.0",
-    "seneca": "^0.6.2"
+    "seneca": "^0.6.2",
+    "treehugger-node": "0.0.4"
   }
 }

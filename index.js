@@ -1,24 +1,23 @@
-var seneca = require('seneca')()
 
-var product = require('./product')
-var sum = require('./sum')
+var parse = require('./parser').direct
+var evaluate = require('./evaluator').direct
+//var treehugger = require('treehugger-node');
 
-seneca.add( {role:'math', cmd:'sum'}, function(args,callback) {
-  sum(args.left, args.right, function(value) {
-    callback(null,{answer:value})
-  })
+parse("2+3*(3+2)", function(err, node) {
+   evaluate(node, function(err, value) {
+     console.log(value);
+   });
+
+  // node.traverseTopDown(
+  //  'Op(op, Var(left), Var(right))', function(n) {
+  //       var value = eval(n.left.value + " "+ n.op.value+ " "+ n.right.value);
+  //       n.op.result = value;
+  //       n.op.transverseUp()
+  //  });
+  //
 })
-
-seneca.add( {role:'math', cmd:'product'}, function(args,callback) {
-  product(args.left, args.right, function(value) {
-    callback(null,{answer:value})
-  })
+parse("2", function(err, node) {
+  evaluate(node, function(err, value) {
+    console.log(value);
+  });
 })
-seneca.listen();
-
-function print(err,result) {console.log(result)}
-
-
-var math = seneca.pin({role:'math',cmd:'*'})
-math.sum( {left:1,right:2}, print )
-math.product( {left:1,right:2}, print )
