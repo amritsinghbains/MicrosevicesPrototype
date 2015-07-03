@@ -12,7 +12,7 @@ var parserModule = require('./parser');
 var sumModule = require('./sum');
 var productModule = require('./product');
 
-var evaluateModule = require('./evaluator')(sumModule.client(), productModule.client());
+var evaluateModule = require('./evaluator')(sumModule.direct, productModule.direct);
 var calculatorModule = require('./calculator')(parserModule.client(), evaluateModule.client());
 
 

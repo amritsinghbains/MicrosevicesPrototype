@@ -1,18 +1,13 @@
-var operations = {};
-
-module.exports = function(sum, product){
-  operations['+'] = sum;
-  operations['*'] = product;
-  return {
-    direct: evalJSonAST,
-    client: client,
-    startService: startService
-  }
+module.exports = function(sum, product) {
+  this.operations = {};
+  this.operations['+'] = sum;
+  this.operations['*'] = product;
+  return evalAST;
 }
 
-function evalJSonAST(jsonAST, cb) {
+function evalAST(ast, cb) {
   try {
-    evaluate(jsonAST, function(value){
+    evaluate(ast, function(value){
         cb(null, {result: value});
     });
   } catch(e) {
@@ -23,7 +18,7 @@ function evaluate(node, cb) {
   if(node.cons==='Var') {
     cb(Number(node.children[0].value));
   } else if(node.cons==='Op') {
-    var op = operations[node.children[0].value];
+    var op = this.operations[node.children[0].value];
     var leftNode = node.children[1];
     var rightNode = node.children[2];
     evaluate(leftNode, function(left){

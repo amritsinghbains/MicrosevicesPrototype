@@ -2,22 +2,14 @@
   "name": "MicrosevicesPrototype",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "direct-client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.13.1",
-    "connect": "^3.4.0",
-    "cookie-parser": "^1.3.5",
-    "express": "^4.13.0",
-    "express-session": "^1.11.3",
     "seneca": "^0.6.2",
-    "seneca-admin": "^0.2.0",
-    "seneca-data-editor": "^0.2.0",
-    "seneca-jsonrest-api": "^0.3.1",
     "treehugger-node": "0.0.4"
   }
 }
