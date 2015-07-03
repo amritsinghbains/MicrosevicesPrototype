@@ -1,9 +1,10 @@
 module.exports = client;
 
-function client(seneca, clientConfig) {
-  if(!seneca) return require('./sum');
+function client(seneca) {
+  if(((seneca || {}).constructor || {}).name  !== 'Seneca') {
+    return require('./sum')
+  }
   return function(left, right, cb) {
-    var senecaSumClient = seneca.client(clientConfig);
-    senecaSumClient.act( {role:'math', op:'+', left:left, right:right}, cb);
+    seneca.act( {role:'math', op:'+', left:left, right:right}, cb);
   }
 }

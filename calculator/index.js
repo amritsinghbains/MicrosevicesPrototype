@@ -1,10 +1,9 @@
-module.exports = function(seneca, options) {
-  if (seneca.constructor === Object) {
-    return require('./calculator')(seneca); //options object passet to evaluator
+module.exports = function(seneca) {
+  if(((seneca || {}).constructor || {}).name  !== 'Seneca') {
+    return require('./calculator')(seneca); //options object passed to calculator
   } else {
     return function(expression, cb) {
-      var senecaSumClient = seneca.client(options);
-      senecaSumClient.act({role: 'math', op: 'calc', expression: expression}, cb);
+      seneca.act({role: 'math', op: 'calc', expression: expression}, cb);
     }
   }
 }

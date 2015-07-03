@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "check-types": "^3.3.0",
     "seneca": "^0.6.2",
-    "treehugger-node": "0.0.4"
+    "treehugger-node": "0.0.4",
+    "yargs": "^3.14.0"
   }
 }

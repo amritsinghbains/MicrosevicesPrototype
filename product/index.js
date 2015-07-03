@@ -2,12 +2,11 @@ var name = 'productService';
 
 module.exports = client;
 
-function client(seneca, clientConfig) {
-  if(!seneca) return require('./product');
+function client(seneca) {
+  if(((seneca || {}).constructor || {}).name  !== 'Seneca') {
+    return require('./product')
+  }
   return function(left, right, cb) {
-    var senecaClient = seneca.client(clientConfig || {
-      host: "localhost"
-    });
-    senecaClient.act( {role:'math', op:'*', left:left, right:right}, cb);
+    seneca.act( {role:'math', op:'*', left:left, right:right}, cb);
   }
 }
