@@ -1,5 +1,3 @@
-var name = 'sumService';
-
 module.exports = client;
 
 function client(seneca, clientConfig) {
