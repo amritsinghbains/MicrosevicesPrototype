@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "seneca": "^0.6.2",
+    "seneca-redis-transport": "^0.3.0",
     "treehugger-node": "0.0.4",
     "yargs": "^3.14.0"
   }

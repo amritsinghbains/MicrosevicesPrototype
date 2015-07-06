@@ -20,10 +20,11 @@ seneca.use('calculator/service', {parse: parse, evaluate: evaluate});
 
 var calculate = require('./calculator')(seneca);
 
+
 calculate("2+3*(5+1)+9", console.log)
 
 //CONSOLE OUTPUT
-// $ node index.js --seneca.log=type:act,regex:role:math
+// $ node runInSingleProcess.js --seneca.log=type:act,regex:role:math
 // [TIME]        vf...28/-      DEBUG   act     calculatorService       -       IN      zyvx6eyrp9b3/7ptagmexr91q       op:calc,role:math       {role=math,op=calc,expression=2+3*(5+1)+9}      ENTRY   A;xizvapzl4twl-
 // [TIME]        vf...28/-      DEBUG   act     parserService   -       IN      9knk4yslubs4/ocrstb1mk3sw       op:parse,role:math      {role=math,op=parse,expression=2+3*(5+1)+9}     ENTRY   A;zayrs8270z5m  -
 // [TIME]        vf...28/-      DEBUG   act     parserService   -       OUT     9knk4yslubs4/ocrstb1mk3sw       op:parse,role:math      {cons=Op,children=[{value=+},{cons=Op,children=[{-},{-},{-}]},{cons=Var,children=[{-}]}]}      EXIT    A;zayrs8270z5m  5       -
