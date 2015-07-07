@@ -1,5 +1,11 @@
 var seneca = require('seneca')();
 seneca.use('redis-transport');
+// seneca.use('loadbalance-transport', {
+//   workers: [
+//     {type: 'web', port: 10102},
+//     {type: 'web', port: 10103},
+//   ]
+// });
 
 var argv = require('yargs')
   .usage('Usage: node startService.js <--all|[command]>')
@@ -64,6 +70,11 @@ if(services.indexOf('product')>=0 || argv.all) {
 if(services.indexOf('parser')>=0 || argv.all) {
   console.log('starting parser service')
   seneca.use('parser/service');
+  // seneca.add({ role: 'transport', cmd: 'ping' }, function (args, cb) {
+  // // Silence errors about endpoint not found.
+  // cb()
+})
+
 }
 
 
@@ -85,7 +96,9 @@ if(services.indexOf('calculator')>=0 || argv.all) {
 
 
 
-seneca.listen(argv.listen ? JSON.parse(argv.listen) : {"port": 10101});
+var listenConfiguration = argv.listen ? JSON.parse(argv.listen) : {"port": 10101};
+seneca.listen(listenConfiguration);
+console.log("listen configuration : %s", JSON.stringify(listenConfiguration));
 
 
 function getClienConfiguration(serviceName, configuration, dependencies) {
@@ -111,3 +124,11 @@ function getClienConfiguration(serviceName, configuration, dependencies) {
 // Using redis transport to connect to parser: (npm install seneca-redis-transport)
 //  $node startService.js evaluator calculator --parser_client='{"type":"redis"}' --seneca.log=type:act,regex:role:math
 //  $node startService.js parser -l '{"type":"redis", "pin":"{\"role\":\"math\", \"op\":\"parse\"}"}'  --seneca.log=plugin:redis-transport
+
+
+
+
+//Using loadbalance-transport -> uncomment load balance lines
+// $node startService.js parser -l '{"port":10102}'  --seneca.log=type:act,regex:role:math
+// $node startService.js parser -l '{"port":10103}'  --seneca.log=type:act,regex:role:math
+// $node startService.js evaluator calculator --parser_client='{"type":"loadbalance-transport"}'  --seneca.log=type:act,regex:rolmath
