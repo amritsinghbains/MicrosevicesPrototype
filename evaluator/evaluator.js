@@ -2,7 +2,20 @@ module.exports = function(options) {
   var operations = {};
   operations['+'] = options.sum;
   operations['*'] = options.product;
-  var evaluate = function(node, cb) {
+
+  return function(ast, cb) {
+    try {
+      evaluate(ast, function(value) {
+        cb(null, {result: value});
+      });
+    } catch (e) {
+      cb({error: e });
+    }
+
+  };
+
+
+  function evaluate(node, cb) {
     if (node.cons === 'Var') {
       cb(Number(node.children[0].value));
     } else if (node.cons === 'Op') {
@@ -21,15 +34,5 @@ module.exports = function(options) {
     }
   }
 
-  return function(ast, cb) {
-    try {
-      evaluate(ast, function(value) {
-        cb(null, {result: value});
-      });
-    } catch (e) {
-      cb({error: e });
-    }
-
-  }
 
 }

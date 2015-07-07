@@ -1,4 +1,5 @@
-var seneca = require('seneca')()
+var seneca = require('seneca')();
+seneca.use('redis-transport');
 
 var argv = require('yargs')
   .usage('Usage: node startService.js <--all|[command]>')
@@ -99,8 +100,14 @@ function getClienConfiguration(serviceName, configuration, dependencies) {
     return service(seneca.client(config));
   }
 }
-// $ node startService.js parser -l '{"port":10102}'
-// $ node startService.js evaluator calculator --parser_client='{"host":"localhost", "port":10102}'
+// Using web transport to connect to parser:
+// $ node startService.js parser -l '{"port":10102}'  --seneca.log=type:act,regex:role:math
+// $ node startService.js evaluator calculator --parser_client='{"host":"localhost", "port":10102}'  --seneca.log=type:act,regex:role:math
 //
 // $ curl -d '{"role" : "math", "op": "calc", "expression": "2+2"}' http://localhost:10101/act
 // {"result":4}
+
+
+// Using redis transport to connect to parser: (npm install seneca-redis-transport)
+//  $node startService.js evaluator calculator --parser_client='{"type":"redis"}' --seneca.log=type:act,regex:role:math
+//  $node startService.js parser -l '{"type":"redis", "pin":"{\"role\":\"math\", \"op\":\"parse\"}"}'  --seneca.log=plugin:redis-transport
