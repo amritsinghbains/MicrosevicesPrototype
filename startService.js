@@ -77,16 +77,16 @@ if(services.indexOf('parser')>=0 || argv.all) {
 
 if(services.indexOf('evaluator')>=0 || argv.all) {
   console.log('starting evaluator service')
-  var sum = getClienConfiguration('sum', argv.sum_client);
-  var product = getClienConfiguration('product', argv.product_client);
+  var sum = getClientConfiguration('sum', argv.sum_client);
+  var product = getClientConfiguration('product', argv.product_client);
   seneca.use('evaluator/service', {sum: sum, product: product});
 }
 
 
 if(services.indexOf('calculator')>=0 || argv.all) {
   console.log('starting calculator service')
-  var parse = getClienConfiguration('parser', argv.parser_client);
-  var evaluate = getClienConfiguration('evaluator', argv.evaluator_client);
+  var parse = getClientConfiguration('parser', argv.parser_client);
+  var evaluate = getClientConfiguration('evaluator', argv.evaluator_client);
   seneca.use('calculator/service', {parse: parse, evaluate: evaluate});
 }
 
@@ -97,7 +97,7 @@ seneca.listen(listenConfiguration);
 console.log("listen configuration : %s", JSON.stringify(listenConfiguration));
 
 
-function getClienConfiguration(serviceName, configuration, dependencies) {
+function getClientConfiguration(serviceName, configuration, dependencies) {
   var service = require('./'+serviceName)
   if(configuration=='local') {
     console.log('using %s local configuration', serviceName);
