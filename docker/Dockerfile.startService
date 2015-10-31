@@ -1,0 +1,6 @@
+FROM node:4.2
+RUN git clone https://github.com/zojeda/MicrosevicesPrototype.git
+WORKDIR /MicrosevicesPrototype
+RUN npm install
+ENTRYPOINT ["node", "startService.js", "--seneca.log=type:act,regex:role:math"]
+#ENTRYPOINT ["node", "/code/hola.js"]

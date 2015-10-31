@@ -1,0 +1,14 @@
+parser:
+  build: ../
+  dockerfile: Dockerfile.startService
+  expose:
+    - "10102"
+  command: parser -l '{"port":10102}'
+calculator:
+  build: ../
+  dockerfile: Dockerfile.startService
+  ports:
+    - "10101:10101"
+  links:
+    - parser
+  command: evaluator calculator --parser_client='{"host":"parser", "port":10102}'
